@@ -1,0 +1,26 @@
+\documentclass[a4paper]{article}
+\usepackage{eso-pic,calc}
+\usepackage{tikz}
+\usepackage{ctex}
+\listfiles
+
+\makeatletter
+\AddToShipoutPicture{%
+	\setlength{\@tempdima}{3cm}
+	\setlength{\@tempdimb}{\paperwidth-2\@tempdima}
+	\setlength{\@tempdimc}{\paperheight-2\@tempdima}
+%	\setlength{\unitlength}{1pt}\thicklines%
+	\put(\strip@pt\@tempdima,\strip@pt\@tempdima){%    
+		\framebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc){}
+	}
+}
+\makeatother
+
+\begin{document}
+	\section*{第一页}
+	这是第一页\newpage
+	
+	\section*{第二页} \newpage
+	
+	\section*{第三页}
+\end{document}
