@@ -1,0 +1,83 @@
+\section{变量或者函数命名规则}
+LATEX3不使用@作为定义内部宏的“字母”。相反，符号\_和:在内部宏名称中用于提供结构。每个函数的名称使用\_划分为逻辑单元，而:将函数名称与(argument specifer)参数说明符(" arg-spec ")分开。这描述了函数期望的参数。
+在大多数情况下，每个参数由一个字母表示。函数的arg-spec字母的完整列表被称为函数的签名.
+
+每个函数名都以它所属的模块(module)开头。因此，除了少数非常基本的函数外，所有expl3函数名都至少包含一个下划线，以将模块名与函数的描述性名称区分开来。例如，所有与逗号列表(comma lists)相关的函数都在模块clist中，并以\env{clist}\_开头。
+
+每个函数都必须包含参数说明符。对于不带参数的函数，这将为空，函数名将以:结尾。大多数函数接受一个或多个参数，并使用以下参数说明符``N,n,c,V,v,o,x,e,f,T,F,p,w,D''.
+
+变量的命名方式与函数类似，但以单个字母开头来定义变量的类型:
+\begin{itemize}
+	\item c Constant:global parameters whose value should not be changed.不应更改其值的全局参数  c 常量
+	\item g Parameters whose value should only be set globally.只能全局配置的参数
+	\item l Parameters whose value should only be set locally.只能在本地设置的参数
+\end{itemize}
+
+然后以类似于函数的方式构建每个变量名，通常从module1名称开始，然后是描述性部分。变量以一个简短的标识符结束，以显示变量类型:
+
+\begin{description}
+	
+	\item [bitset] 一组位(由一系列按位置访问的0和1令牌组成的字符串)。
+	\item [clist] Comma separated list.逗号分隔的列表。
+	\item [dim] “Rigid” lengths.“刚性”的长度。带有单位的长度。
+	\item [fp] Floating-point values;浮点数。
+	\item [int] Integer-valued count register.整数值计数寄存器
+	\item [muskip] “Rubber” lengths for use in mathematics.用于数学的“橡胶”长度。弹性长度。
+	\item [skip] “Rubber” lengths弹性长度。
+	\item [str]String variables: contain character data.字符串变量:包含字符数据.
+	\item [tl] Token list variables: placeholder for a token list.令牌列表变量:令牌列表的占位符。
+	\item [bool] Either true or false.布尔型变量。
+	\item [prop] Property list: analogue of dictionary or associative arrays in other languages.属性列表:类似于其他语言中的字典或关联数组。
+	\item [seq] “Sequence”: a data type used to implement lists (with access at both ends) and	stacks.一种数据类型，用于实现列表(两端都有访问)和堆栈。	
+\end{description}
+当然还有其它类型，这里不再一一列举。
+\subsection{预定义变量Scratch variables}
+侧重于变量用法的模块通常提供四个scratch变量，两个局部变量和两个全局变量，其名称形式为\Arg{scope}\_tmpa\_\Arg{type}/\cmd{\Arg{scope}}\_tmpb\_\Arg{type}。
+这些从来不会被核心代码使用。TEX分组的本质意味着，与任何其他临时变量一样，这些变量应该只在没有第三方代码干预的情况下设置和使用.
+\subsection{Using the LATEX3 modules使用LATEX3模块}
+\verb|\ExplSyntaxOn ... \ExplSyntaxOff| 这是开启和关闭expl3格式的说明符。开启后，下划线和冒号就可以正常使用了。
+\verb|\ExplSyntaxOn|函数切换到一个类别代码体系，在该体系中，空格和新行被忽略，冒号(:)和下划线(\_)被视为
+“字母”，从而允许访问代码函数和变量的名称。在这个环境中，\verb|~|用来输入一个空格。\verb|\ExplSyntaxOff|返回到文档类别代码制度.
+
+\section{声明变量与函数}
+\begin{enumerate}
+	\item 声明变量
+	\begin{command}
+		\cmd{int\_new:N }\Arg{integer}\\
+		\cmd{int\_set:Nn} \Arg{integer} \marg {int expr}\\
+		\cmd{dim\_new:N }\Arg{dimension}\\
+		\cmd{dim\_set:Nn} \Arg{dimension} \marg {dim expr}\\
+		\cmd{seq\_new:N }\Arg{seq var}\\
+		……
+	\end{command}
+	\item 声明函数: 比如cs\_new:Npn,cs\_set:Npn,cs\_gset:Npn.
+	\begin{command}	
+		\cmd{cs}\_new:Npn \Arg{function}\Arg{parameters}\marg {code}\\
+		\cmd{cs}\_set:Npn \Arg{function}\Arg{parameters}\marg {code}\\
+		\cmd{cs}\_gset:Npn \Arg{function}\Arg{parameters}\marg {code}\\
+	\end{command}
+	\item Copying control sequences 复制控制序列
+	\begin{command}	
+		\cmd{cs}\_new\_eq:NN \Arg{cs1}\Arg{cs2}\\
+		\cmd{cs}\_new\_eq:NN \Arg{cs1}\Arg{token}\\
+		\cmd{cs}\_set\_eq:NN \Arg{cs1}\Arg{cs2}\\
+		\cmd{cs}\_set\_eq:NN \Arg{cs1}\Arg{token}\\
+		\cmd{cs}\_gset\_eq:NN \Arg{cs1}\Arg{cs2}\\
+		\cmd{cs}\_gset\_eq:NN \Arg{cs1}\Arg{token}\\
+	\end{command}
+	\item Deleting control sequences 删除控制序列,将\Arg{control sequence}设置为全局未定义。
+	\begin{command}	
+		\cmd{cs}\_undefine:N \Arg{control sequence}\\
+		
+	\end{command}
+	\item Showing control sequences 显示控制序列
+	\begin{command}	
+		\cmd{cs}\_meaning:N \Arg{control sequence}\\
+		\cmd{cs}\_show:N \Arg{control sequence} 在终端上显示\Arg{control sequence}的定义。\\			
+	\end{command}
+	\item Converting to and from control sequences 在控制序列之间进行转换
+	\begin{command}	
+		\cmd{use}:c \Arg{control sequence name}\\
+		\cmd{cs}:w \Arg{control sequence name} \cmd{cs\_end:}\\		
+	\end{command}
+\end{enumerate}

@@ -1,0 +1,120 @@
+\documentclass{ctexart}
+\usepackage{tikz}
+\usepackage{expl3}
+%\usepackage{lshort-zh-cn-style2}
+\usepackage{verbatim,listings}
+\usepackage{Verbatim}
+\usepackage[margin=3cm,showframe]{geometry}
+\lstset{%
+	breaklines=true,%自动换行
+	framexleftmargin=2em,framexrightmargin=0em,
+	aboveskip=1.5em,belowskip=0em,xleftmargin=0em,xrightmargin=0em,
+	frame=none,%边框样式
+	rulecolor=\color{blue!20},%边框颜色
+	backgroundcolor=\color{gray!15},%背景色
+	basicstyle=\small\ttfamily\kaishu,%字体样式
+	morekeywords={ExplSyntaxOn,ExplSyntaxOff}, % 设置更多的关键字，用逗号分隔
+	keywordstyle=\bfseries\color{red},%关键词
+	columns=flexible,%字间距
+	language=[LaTeX]Tex,%语言	
+	commentstyle=\itshape\color{green!50!black}, % 设置注释样式，斜体，浅灰色
+	stringstyle=\bfseries\color{PineGreen!90!black}, % 设置字符串样式
+	framesep=.2em % 设置代码与边框的距离
+	}
+\usepackage{fancyvrb}
+\fvset{fontsize=\large,frame=single,framerule=2pt,
+	rulecolor=\color{red!20},framesep=2pt,boxwidth=\linewidth
+	,formatcom=\color{teal}}
+%\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{colortbl,tabularx,multirow,makecell,booktabs}
+
+\makeatletter
+\newwrite\examplee@out
+\newlength\savefboxrulee
+\newlength\savefboxsepp
+\edef\examplee@name{\jobname-examplee.aux}
+\newenvironment{examplee}%
+{\ignorespaces\begingroup\@bsphack
+	\immediate\openout\examplee@out=\examplee@name
+	\let\do\@makeother\dospecials\catcode`\^^M\active
+	\def\verbatim@processline{\immediate\write\examplee@out{\the\verbatim@line}}%
+	\verbatim@start}%
+{\ignorespaces\immediate\closeout\examplee@out\@esphack\endgroup%
+	\ignorespacesafterend
+%	\setlength{\savefboxrulee}{\fboxrule}%
+%	\setlength{\savefboxsepp}{\fboxsep}%
+%	\setlength{\fboxsep}{0.015\textwidth}%
+%	\setlength{\fboxrule}{0.4pt}%
+	\setlength{\parskip	}{1ex}
+\begin{minipage}[c]{0.6\textwidth}%
+	\setlength{\fboxrule}{\savefboxrulee}%
+	\setlength{\fboxsep}{\savefboxsepp}%
+		\setlength{\parskip}{1ex plus 0.4ex minus 0.2ex}%
+	\lstinputlisting{\examplee@name}
+\end{minipage}
+\hspace{0.1em}
+	\fcolorbox{blue!20}{blue!0}{
+		\begin{minipage}[c]{0.3\textwidth}%
+%			\setlength{\fboxrule}{\savefboxrulee}%
+%			\setlength{\fboxsep}{\savefboxsepp}%
+%			\setlength{\parskip}{1ex plus 0.4ex minus 0.2ex}%
+			\textcolor{red}{\heiti 输出为:}
+			\normalsize\input{\examplee@name}%
+		\end{minipage}}%
+}
+
+\newcommand*\cmd[1]{\texttt{\char`\\#1}}
+\newcommand\cs[1]{\texttt{\char`\\#1}}
+\def\crcmd{\cmd{\char`\\}}
+\newcommand*\env[1]{\texttt{#1}}
+\newcommand*\pkg[1]{\textsf{#1}}
+\newcommand*\cls[1]{\textsf{#1}}
+\newcommand*\marg{\@ifstar\@marg\@margmeta}
+\newcommand*\oarg{\@ifstar\@oarg\@oargmeta}
+\newcommand*\Arg[1]{\@meta{#1}}
+\def\@oarg#1{\textcolor{black}{\texttt{[#1]}}}
+\def\@oargmeta#1{\@oarg{\@meta{#1}}}
+\def\@marg#1{\texttt{\{#1\}}}
+\def\@margmeta#1{\@marg{\@meta{#1}}}
+\def\@meta#1{$\m@th\langle$\textnormal{\textit{#1}}$\m@th\rangle$}
+\makeatother 
+
+
+
+
+\newcounter{num}[section]
+\newenvironment{command}%
+{\trivlist\item\relax%
+	\def\arraystretch{1.2}%
+	\hskip\parindent%
+	\begin{tabular}{>{\columncolor{blue!5}}l}
+	} {\end{tabular}\endtrivlist}
+
+\newenvironment{myy}%
+{\stepcounter{num}\verbatim\color{blue}\bfseries(\thenum)}%
+{\endverbatim}
+
+\lstnewenvironment{my}
+ {\stepcounter{num}\lstset{
+ 		framexleftmargin=-2.8em,
+ 		aboveskip=-1.2em,belowskip=0em,xleftmargin=2em,xrightmargin=0em, 	
+ 		rulecolor=\color{blue!20},%边框颜色
+ 		backgroundcolor=\color{green!15},%背景色
+ 		keywordstyle=\bfseries\color{red},%关键词
+  		commentstyle=\itshape\color{green!50!black}, % 设置注释样式，斜体，浅灰色
+ 		stringstyle=\bfseries\color{PineGreen!90!black}, % 设置字符串样式
+ 		framesep=0em} \color{blue}\bfseries(\thenum)}% 设置代码与边框的距离
+ {}
+	
+\begin{document}
+\input{forehead}
+\input{integer}
+
+\ExplSyntaxOn
+
+\ExplSyntaxOff
+
+
+
+\end{document}

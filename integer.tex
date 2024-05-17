@@ -1,0 +1,621 @@
+\section{整数}
+\subsection{整数表达式}
+
+%%%%%%%%%%%%%%%%%%%%
+
+
+\setlength\parskip{0.4ex plus 0.2ex minus 0.2ex}%段落垂直间距
+\setlength\leftskip{0em}%段落左缩进
+\setlength\rightskip{0em}%段落右缩进
+\setlength\parindent{2em}%段落首行缩进
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{my}
+	\int_eval:n {<int expr>}
+\end{my}
+
+计算10除以3四舍五入后的整数	:
+
+\begin{examplee}	
+	\ExplSyntaxOn		
+	\int_eval:n {10/3} 	
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_sign:n {<int expr>}
+\end{my}
+
+计算表达式的值，结果为正，表示为1，结果为负表示为-1，结果为零表示为0。
+下面计算的结果为：
+
+\begin{examplee}
+	\ExplSyntaxOn		
+	\int_sign:n{10/3} ,
+	\int_sign:n{10/(-3)},
+	\int_sign:n {5-5}	
+	\ExplSyntaxOff
+	
+\end{examplee}	
+
+\begin{my}
+	\int_abs:n {<int expr>}
+\end{my}
+
+计算表达式的绝对值。下面计算的结果为：
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_abs:n{10/3} ,
+	\int_abs:n{10/(-3)},
+	\int_abs:n {5-5}	
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_div_round:nn {<int expr1>} {<int expr2>}
+\end{my}
+
+如前所述计算两个表达式的值，然后将第一个值除以第二个值，并将结果舍入到最接近的整数。平局从零开始四舍五入。下面计算的结果为：
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_div_round:nn {10/3}{4-2} ,
+	\int_div_round:nn {10/(-3)}{4-2},
+	\int_div_round:nn {5-5}	{4-2}
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_div_truncate:nn {<int expr1>} {<int expr2>}
+\end{my}
+
+如前所述计算两个表达式，然后将第一个值除以第二个值，并将结果舍入到零。请注意，使用/的除法会舍入到最接近的整数。在两次展开之后，结果以整数表示的形式留在输入流中：
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_div_truncate:nn {10/3}{4-2} ,
+	\int_div_truncate:nn {10/(-3)}{4-2},
+	\int_div_truncate:nn {5-5}	{4-2}
+	\ExplSyntaxOff
+\end{examplee}	
+
+\begin{my}
+	\int_max:nn {<int expr1>} {<int expr2>}
+	\int_min:nn {<int expr1>} {<int expr2>}
+\end{my}
+
+如前所述计算两个表达式，求最值。
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_max:nn {10/3}{4-2} ,
+	\int_max:nn {10/(-3)}{4-2},
+	\int_max:nn {5-5}	{4-2}
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_mod:nn {<int expr1>} {<int expr2>}
+\end{my}
+
+如前所述计算两个表达式，求余。
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_mod:nn {10}{3} ,
+	\int_mod:nn {10}{4},
+	\int_mod:nn {10}{11}
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{创建和初始化整数}
+
+\begin{my}
+	\int_new:N <integer>
+\end{my}
+
+声明一个新的整数，或者如果名称已被使用，则引发一个错误。该宣言是全球性的。最初等于0。
+
+\begin{my}
+	\int_const:Nn <integer> {<int expr>}
+\end{my}
+
+声明一个新的常量$\langle$integer$\rangle$，或者如果名称已被使用，则引发错误。$\langle$整数$\rangle$的值被全局设置为$\langle$int expr$\rangle$。
+
+\begin{examplee}			
+	\ExplSyntaxOn		
+	\int_new:N \l_my_a_int 
+	\int_new:N \l_my_b_int 
+	\int_const:Nn \c_my_consta_int {12}
+	\int_use:N \l_my_a_int ,
+	\int_use:N \l_my_b_int ,
+	\int_use:N \c_my_consta_int
+	\ExplSyntaxOff
+\end{examplee}
+	
+\begin{my}
+	\int_zero:N ⟨integer⟩
+	\int_zero_new:N ⟨integer⟩
+\end{my}
+
+将$\langle$integer$\rangle$设置为0.确保$\langle$integer$\rangle$在必要时通过应用\cmd{int\_new:N}来全局存在，然后应用\cmd{int\_(g)zero:N}以使$\langle$integer$\rangle$设置为零。
+
+
+\begin{my}
+	\int_if_exist:NTF ⟨int⟩ {⟨true code⟩} {⟨false code⟩}
+\end{my}
+
+测试$\langle$int$\rangle$是否当前定义。这并不检查$\langle$int$\rangle$是否真的是一个整数变量。	
+
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_set:Nn \l_my_a_int {12}
+	\int_new:N	\l_my_zero_int	
+	\int_zero:N \l_my_zero_int 
+	\int_set_eq:NN \l_my_b_int \l_my_a_int
+	\int_use:N \l_my_zero_int ,
+	\int_use:N \l_my_b_int,
+	\int_if_exist:NTF \l_my_c_int  {exist}{no exist}
+	\ExplSyntaxOff
+\end{examplee}	
+
+\subsection{设置和递增整数}	
+\begin{my}
+	\int_add:Nn ⟨integer⟩ {⟨int expr⟩}
+	\int_decr:N ⟨integer⟩
+	\int_incr:N ⟨integer⟩
+\end{my}
+	
+将$\langle$int expr$\rangle$的结果与$\langle$integer$\rangle$的当前内容相加。将$\langle$integer$\rangle$中存储的值减少1。	将$\langle$integer$\rangle$中存储的值增加1。
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_add:Nn \l_my_b_int {\c_my_consta_int} %\c_my_consta_int =12
+	\int_use:N \l_my_b_int ,
+	\int_decr:N \l_my_b_int
+	\int_use:N \l_my_b_int ,
+	\int_incr:N \l_my_b_int  
+	\int_use:N \l_my_b_int ,
+	\ExplSyntaxOff
+\end{examplee}	
+
+\begin{my}
+	\int_set_eq:NN ⟨integer1⟩ ⟨integer2⟩
+\end{my}
+	
+将$\langle$integer1$\rangle$的内容设置为$\langle$integer2$\rangle$的内容。		
+
+\begin{my}
+	\int_sub:Nn ⟨integer⟩ {⟨int expr⟩}
+\end{my}	
+从$\langle$integer$\rangle$的当前内容中减去$\langle$int expr$\rangle$的结果。	
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_add:Nn \l_my_b_int {\c_my_consta_int}
+	\int_use:N \l_my_b_int ,
+	\int_sub:Nn \l_my_b_int {3}
+	\int_use:N \l_my_b_int ,
+	\ExplSyntaxOff
+\end{examplee}	
+
+\subsection{输出整数}	
+
+\begin{my}
+	\int_use:N ⟨integer⟩
+	\int_use:c
+\end{my}	
+恢复$\langle$integer$\rangle$的内容并将其直接放在输入流中。如果变量不存在或无效，则会引发错误。
+
+\subsection{整数表达式}
+\begin{my}
+	\int_compare_p:nNn {⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩}
+	\int_compare:nNnTF 	{⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩}
+	{⟨true code⟩} {⟨false code⟩}
+\end{my}
+这个函数首先计算$\langle$int expr$\rangle$的每一个值。然后使用$\langle$relation$\rangle$比较这两个结果.关系：等于=，大于>，小于<。
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_compare:nNnTF  {5} < {3} {yes}{no}
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_compare_p:n 
+	\int_compare:nTF
+\end{my}
+这里的n是一个关系表达式。
+
+\begin{my}
+	\int_case:nn 
+	\int_case:nnTF {⟨test int expr⟩}
+	{		{⟨int expr case1⟩} {⟨code case1⟩}
+		{⟨int expr case2⟩} {⟨code case2⟩}
+		...
+		{⟨int expr casen⟩} {⟨code casen⟩}
+	} {	⟨true code⟩	}{⟨false code⟩}
+\end{my}
+这个函数计算$\langle$test int expr$\rangle$并将其依次与每个
+$\langle$int expr cases$\rangle$如果两者相等，则在输入流中保留相关的$\langle$code$\rangle$，并且丢弃其他情况。如果任何情况匹配，$\langle$true code$\rangle$也会插入到输入流中(在适当情况的代码之后)，而如果没有匹配，则会插入$\langle$false code$\rangle$。函数\cmd{int\_case:nn}也可用，如果没有匹配则不执行任何操作。
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_case:nnF { 2* 5 }{
+		{ 5 } { Small }
+		{ 4 + 6 } { Medium }
+		{ -2 * 10 } { Negative }
+	}  	
+	{No idea! }
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_if_odd_p:n {⟨int expr⟩}
+	\int_if_odd:nTF {⟨int expr⟩}{⟨true code⟩} {⟨false code⟩}
+\end{my}
+这个函数首先计算$\langle$int expr$\rangle$，判断是不是偶数，然后根据需要执行代码。
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_if_odd:nTF { 1 * 5 }{odd } { even}
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_if_zero_p:n {⟨int expr⟩}
+	\int_if_zero:nTF {⟨int expr⟩}{⟨true code⟩} {⟨false code⟩}
+\end{my}
+这个函数首先计算$\langle$int expr$\rangle$。然后判断它是否为零，然后执行相应的代码。
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_if_zero:nTF { 0 * 5 }{0 } { no}
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{整数表达式循环}
+
+\begin{my}
+	\int_do_until:nNnn {⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩} {⟨code⟩}
+\end{my}
+将$\langle$code$\rangle$放在输入流中供TEX处理，然后计算两个$\langle$int expr$\rangle$之间的关系。如果测试为假，则$\langle$code$\rangle$再次插入到输入流中，并且发生循环，直到$\langle$relation$\rangle$为真。
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\int_do_until:nNnn {\l_my_a_int} >{99} {
+		\int_incr:N \l_my_a_int
+		\int_add:Nn \l_my_b_int {\l_my_a_int}  }
+	\int_use:N \l_my_b_int
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_do_while:nNnn {⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩} {⟨code⟩}
+\end{my}
+将$\langle$code$\rangle$放在输入流中供TEX处理，然后计算两个$\langle$int expr$\rangle$之间的关系。如果测试为真，则$\langle$code$\rangle$再次插入到输入流中，并且发生循环，直到$\langle$关系$\rangle$为假
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\int_do_while:nNnn {\l_my_a_int} < {100} {
+		\int_incr:N \l_my_a_int
+		\int_add:Nn \l_my_b_int {\l_my_a_int} }
+	\int_use:N \l_my_b_int
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_until_do:nNnn {⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩} {⟨code⟩}
+\end{my}
+
+计算两个$\langle$int expr$\rangle$之间的关系，然后如果$\langle$关系$\rangle$为假，则将$\langle$代码$\rangle$放在输入流中。在$\langle$code$\rangle$被TEX处理之后，重复测试，并且循环发生直到测试为真。
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\int_until_do:nNnn {\l_my_a_int} > {99} {
+		\int_incr:N \l_my_a_int
+		\int_add:Nn \l_my_b_int {\l_my_a_int} }
+	\int_use:N \l_my_b_int
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_while_do:nNnn {⟨int expr1⟩} ⟨relation⟩ {⟨int expr2⟩} {⟨code⟩}
+\end{my}
+
+计算两个$\langle$int expr$\rangle$之间的关系，然后如果$\langle$关系$\rangle$为真，则将$\langle$代码$\rangle$放在输入流中。在$\langle$code$\rangle$被TEX处理之后，重复测试，并且循环发生直到测试为假。
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\int_while_do:nNnn {\l_my_a_int} < {100} {
+		\int_incr:N \l_my_a_int
+		\int_add:Nn \l_my_b_int {\l_my_a_int} }
+	\int_use:N \l_my_b_int
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_do_until:nn {⟨integer relation⟩} {⟨code⟩}
+	\int_do_while:nn {⟨integer relation⟩} {⟨code⟩}
+	\int_until_do:nn {⟨integer relation⟩} {⟨code⟩}
+	\int_while_do:nn {⟨integer relation⟩} {⟨code⟩}
+\end{my}
+
+将$\langle$code$\rangle$放在输入流中供TEX处理，然后计算$\langle$整数关系$\rangle$。如果测试为假，则$\langle$code$\rangle$再次插入到输入流中，并且发生循环，直到$\langle$关系$\rangle$为真。
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\int_do_until:nn {\l_my_a_int > 99} {
+		\int_incr:N \l_my_a_int
+		\int_add:Nn \l_my_b_int {\l_my_a_int} }
+	\int_use:N \l_my_b_int
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{整数步进函数}
+
+\begin{my}
+	\int_step_function:nN {⟨final value⟩} ⟨function⟩
+	\int_step_function:nnN {⟨initial value⟩} {⟨final value⟩} ⟨function⟩
+	\int_step_function:nnnN {⟨initial value⟩} {⟨step⟩} {⟨final value⟩} ⟨function⟩
+\end{my}
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100
+	\cs_set:Npn \my_func:n #1 { 		
+		\int_add:Nn \l_my_b_int {#1} }
+	\int_step_function:nnnN { 1 } { 1} { 100 } \my_func:n
+	\int_use:N \l_my_b_int 
+	\ExplSyntaxOff
+\end{examplee}
+
+这个函数首先计算$\langle$初始值$\rangle$，$\langle$步骤$\rangle$和$\langle$最终值$\rangle$，所有这些都应该是整数表达式。然后将$\langle$函数$\rangle$放在每个函数的前面
+$\langle$value$\rangle$从$\langle$初始值$\rangle$依次变为$\langle$最终值$\rangle$(在每个$\langle$值$\rangle$之间使用$\langle$step$\rangle$)。$\langle$step$\rangle$必须是非零的。如果$\langle$step$\rangle$为正，则当$\langle$值$\rangle$大于$\langle$最终值$\rangle$时，循环停止。如果$\langle$step$\rangle$为负，则当$\langle$值$\rangle$小于$\langle$最终值$\rangle$时，循环停止。$\langle$函数$\rangle$应该吸收一个数值参数
+
+\begin{my}
+	\int_step_inline:nn {⟨final value⟩} {⟨code⟩}
+	\int_step_inline:nnn {⟨initial value⟩} {⟨final value⟩} {⟨code⟩}
+	\int_step_inline:nnnn {⟨initial value⟩} {⟨step⟩} {⟨final value⟩} {⟨code⟩}
+\end{my}
+
+\begin{examplee}			
+	\ExplSyntaxOn       %计算1+2+3+...+100	
+	\int_step_inline:nnnn { 1 } { 1} { 100 } {
+		\int_add:Nn \l_my_b_int {#1}}
+	\int_use:N \l_my_b_int 
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_step_variable:nNn {⟨final value⟩} ⟨tl var⟩ {⟨code⟩}
+	\int_step_variable:nnNn {⟨initial value⟩} {⟨final value⟩} ⟨tl var⟩ {⟨code⟩}
+	\int_step_variable:nnnNn {⟨initial value⟩} {⟨step⟩} {⟨final value⟩} ⟨tl var⟩
+	{⟨code⟩}
+\end{my}
+
+这个函数首先计算⟨初始值⟩，⟨步骤⟩和⟨最终值⟩，所有这些都应该是整数表达式。然后，对于从⟨初始值⟩到⟨最终值⟩轮流的每个⟨值⟩(在每个⟨值⟩之间使用⟨step⟩)，⟨代码⟩被插入到输入流中，⟨tl var⟩被定义为当前的⟨值⟩。因此，⟨code⟩应该使用⟨tl var⟩。
+函数\cmd{int\_step\_variable:nNn}和\cmd{int\_step\_variable:nnNn}都使用一个固定的⟨step⟩为1，并且在\cmd{int\_step\_variable:nNn}的情况下，⟨初始值⟩也固定为1。
+
+\begin{examplee}			
+	\ExplSyntaxOn      	
+	\int_step_variable:nnnNn {65} {1} {70} \l_my_b_int {\char \l_my_b_int,}
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{格式化整数(整数转化为其它类型的数)}
+
+
+
+将⟨int expr⟩的值放在输入流中作为数字，小写字母，大写字母，类别代码为12(其他)。
+
+\begin{examplee}			
+	\ExplSyntaxOn      	
+	\int_to_arabic:n {35+21},
+	\int_to_alph:n{13},
+	\int_to_Alph:n {13},
+	\ExplSyntaxOff
+\end{examplee}
+
+
+
+\begin{my}
+	\int_to_symbols:nnn{⟨int expr⟩} {⟨total symbols⟩}{⟨value to symbol mapping⟩}
+\end{my}
+
+这是将⟨int expr⟩转换为符号形式(通常是字母)的低级函数。可用的⟨total symbols⟩应该以整数表达式表示。值实际上根据⟨值到符号映射⟩的转换为符号。这应该以⟨总符号⟩对的条目，一个数字和适当的符号表示.(订制数字与符号的对照表)
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\cs_new:Npn \int_to_alpha:n #1
+	{
+		\int_to_symbols:nnn {#1} { 26 }
+		{
+			{ 1 } { a } {3} {g}
+			{ 2 } {N }
+			{ 26 } { m }
+		}
+	}
+	\int_to_alpha:n{3},\int_to_alpha:n {26}
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_to_bin:n {⟨int expr⟩}
+	\int_to_hex:n {⟨int expr⟩}
+	\int_to_oct:n {⟨int expr⟩}
+\end{my}
+
+整数化为二进制数,十六进制数，八进制数，
+
+\begin{examplee}			
+	\ExplSyntaxOn
+	\int_to_bin:n {12},{\color{cyan}\textbf{\int_to_bin:n {25}}},
+	\int_to_hex:n {12},\textbf{\int_to_hex:n {25}},
+	\int_to_oct:n {12},\textbf{\int_to_oct:n {25}},
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_to_base:nn {⟨int expr⟩} {⟨base⟩}
+	\int_to_Base:nn
+\end{my}
+
+整数转化为base进制数
+
+\begin{examplee}			
+	\ExplSyntaxOn %将116转化为15进制数，注意大小写字母
+	\int_to_Base:nn{116}{15},	
+	\int_to_base:nn{116}{15},		
+	\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\int_to_roman:n {⟨int expr⟩}
+	\int_to_Roman:n
+\end{my}
+
+整数化成罗马数字。
+
+\begin{examplee}			
+	\ExplSyntaxOn %
+	\int_to_roman:n{15},	
+	\int_to_Roman:n{15},		
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{从其他格式转换为整数}
+
+\begin{my}
+	\int_from_alph:n {⟨letters⟩}
+	\int_from_bin:n {⟨binary number⟩}
+	\int_from_hex:n {⟨hexadecimal number⟩}
+	\int_from_oct:n {⟨octal number⟩}
+	\int_from_roman:n {⟨roman numeral⟩}
+	\int_from_base:nn {⟨number⟩} {⟨base⟩}
+\end{my}
+
+\begin{examplee}			
+	\ExplSyntaxOn %
+	\int_from_hex:n {3a},\int_from_hex:n {3A}			
+	\ExplSyntaxOff
+\end{examplee}
+
+\subsection{随机整数}
+
+\begin{my}
+	\int_rand:nn {⟨int expr1⟩} {⟨int expr2⟩}}
+	\int_rand:n {⟨int expr⟩}
+\end{my}
+
+产生两整数表达式的值之间的随机整数。产生1和整数表达式值之间的整数。
+
+\begin{examplee}			
+\ExplSyntaxOn %产生5个10到20之间的整数，5个1到20之间的整数，包括边界。
+\int_step_inline:nn	{5} {\int_rand:nn {10}{20},}\\
+\int_step_inline:nn	{5} {\int_rand:n {20},}		
+\ExplSyntaxOff
+\end{examplee}
+
+\subsection{整数常量}
+
+\begin{my}
+	\c_zero_int  %0
+	\c_one_int   %1
+	\c_max_int   %2147483647
+	\c_max_register_int  %32767
+	\c_max_char_int  %1114111
+\end{my}
+
+\begin{examplee}			
+\ExplSyntaxOn 
+\int_use:N \c_zero_int ,\quad
+\int_use:N \c_one_int,\quad
+\int_use:N \c_max_int,\\
+\int_use:N \c_max_register_int,\quad
+\int_use:N \c_max_char_int	,
+\ExplSyntaxOff
+\end{examplee}
+
+\subsection{预定义整数变量}
+
+\begin{my}
+	\l_tmpa_int
+	\l_tmpb_int
+	\g_tmpa_int
+	\g_tmpb_int
+\end{my}
+
+\subsection{直接数字展开}
+
+\begin{my}
+	\int_value:w ⟨integer⟩
+	\int_value:w ⟨integer denotation⟩ ⟨optional space⟩
+\end{my}
+
+\begin{examplee}			
+\ExplSyntaxOn 
+\int_set:Nn \l_my_b_int {120 }
+\int_value:w 21 ,\int_value:w "21,\int_value:w '21 ,
+\int_value:w `m,\int_value:w `>,
+\ExplSyntaxOff
+\end{examplee}
+
+\subsection{原语条件}
+
+\begin{my}
+	\if_int_compare:w ⟨integer1⟩ ⟨relation⟩ ⟨integer2⟩
+	⟨true code⟩
+	\else:
+	⟨false code⟩
+	\fi:
+\end{my}
+
+\begin{examplee}			
+\ExplSyntaxOn 
+\if_int_compare:w 32 > 205 {yes}
+\else: {no} \fi:,
+\if_int_compare:w 32 > 25 {yes}
+\else: {no} \fi:,
+\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\if_case:w ⟨integer⟩ ⟨case0⟩
+	\or: ⟨case1⟩
+	\or: ...
+	\else: ⟨default⟩
+	\fi:
+\end{my}
+
+根据⟨整数⟩的值选择要执行的case。如果⟨integer⟩为0，则执行第一个case(⟨case0⟩);如果⟨integer⟩为1，则执行第二个case(⟨case1⟩)，等等。⟨integer⟩可以是一个文字，一个常量或一个整数表达式
+
+\begin{examplee}			
+\ExplSyntaxOn 
+\if_case:w \int_eval:n{32-30} m
+\or: {n}
+\or: \int_use:N\c_one_int
+\else: b
+\fi:
+\ExplSyntaxOff
+\end{examplee}
+
+\begin{my}
+	\if_int_odd:w ⟨tokens⟩ ⟨optional space⟩
+	⟨true code⟩
+	\else:
+	⟨true code⟩
+	\fi:
+\end{my}
+
+扩展⟨token⟩直到找到一个非数字标记或空格，并测试所得的⟨整数⟩是否为奇数。如果是，则执行⟨true code⟩。\cmd{else:}分支是可选的。
+
+\begin{examplee}			
+\ExplSyntaxOn 
+\if_int_odd:w \int_eval:n{23-31}
+{yes}⟩
+\else:
+{no}
+\fi:
+\ExplSyntaxOff
+\end{examplee}
