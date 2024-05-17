@@ -3,7 +3,7 @@
 \usepackage{tikz}
 \usepackage{ctex}
 \listfiles
-
+\usepackage[hshift=0mm,vshift=0mm]{fgruler}
 \makeatletter
 \AddToShipoutPicture{%
 	\setlength{\@tempdima}{3cm}
