@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\newcounter{exam}[section]
+
+\newenvironment{example}[1]{\stepcounter{exam}
+	\noindent{Example~\theexam. #1}}{\par}
+	
+\newcounter{examp}[section]
+
+\newenvironment{exampl}[1]{\stepcounter{examp}
+	\noindent\par{Example~\theexam-\theexamp. #1}}{\par}
+\begin{document}
+
+	\section{Three examples}
+	\begin{example}
+		Create 
+			\begin{exampl}
+			And here's 
+		\end{exampl}
+			\begin{exampl}
+			And here's 
+		\end{exampl}
+	\end{example}
+	
+	\begin{example}
+		And here's 
+	\end{example}
+	
+	\begin{example}
+		And here's 
+	\end{example}
+	
+		\begin{example}
+		And here's another
+	\end{example}
+	\section{Another section}
+	We've just started
+	
+	\begin{example}
+		This is the
+	\end{example}
+\end{document}
