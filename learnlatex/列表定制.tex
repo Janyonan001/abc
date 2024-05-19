@@ -1,0 +1,134 @@
+\documentclass{ctexart}
+\usepackage[inline]{enumitem}
+\usepackage{color}
+
+\setlist[enumerate,1]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,
+	label=\arabic*.,start=8,
+}
+\setlist[enumerate,2]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,before=\small\rmfamily\color{green},
+	label=\arabic{enumi}.\alph*).,start=1,
+}	
+\setlist[enumerate,3]{topsep=1pt,partopsep=1pt,
+	leftmargin=4em,rightmargin=2em,
+	label=（第\arabic{enumi}-\alph{enumii}-\roman*).,start=4,
+	labelsep=2em,itemsep=3pt,
+	before=\footnotesize\bfseries\color{red},
+}
+
+\newlist{exam}{enumerate}{3}
+
+\setlist[exam,1]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,
+	label=\arabic*.,start=8,
+}
+\setlist[exam,2]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,before=\small\rmfamily\color{green},
+	label=\arabic{exami}.\alph*).,start=1,
+}	
+\setlist[exam,3]{topsep=1pt,partopsep=1pt,
+	leftmargin=4em,rightmargin=2em,
+	label=（第\arabic{exami}-\alph{examii}-\roman*).,start=4,
+	format=\rmfamily\upshape\color{cyan},
+	labelsep=2em,itemsep=3pt,
+	before=\normalsize\itshape\color{red},
+}
+\newlist{choice}{enumerate}{3}
+
+\setlist[choice,1]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,
+	label=\arabic*.,start=1,
+}
+\setlist[choice,2]{topsep=3pt,partopsep=2pt,
+	leftmargin=4em,rightmargin=2em,before=\small\rmfamily\color{green},
+	label=\arabic{choicei}.\alph*).,start=1,
+}	
+\setlist[choice,3]{topsep=1pt,partopsep=1pt,
+	leftmargin=4em,rightmargin=2em,
+	label=（\arabic{choicei}-\alph{choeceii}-\roman*).,start=4,
+	format=\rmfamily\upshape\color{cyan},
+	labelsep=2em,itemsep=3pt,
+	before=\normalsize\itshape\color{red},
+}
+\usepackage{amsmath}
+\newcommand{\litem}[1]{\item{\bfseries\color{blue}#1}}
+\begin{document}
+
+为全面落实稳就业惠民生政策，5月11日，睢阳区人社局联合区委人才办、区总工会、团区委、区妇联、区残联、区退役军人事务局等七家单位，在金世纪广场联合举办2024年睢阳区“民营企业服务月”专场招聘活动。	
+	
+\begin{enumerate}
+
+	\litem {商丘}睢阳区：举办“民营企业服务月”专场招聘
+	\item 河南队2-3武汉三镇丨达兰双响恩里克点射绝杀 河南队遭遇四连败
+	\begin{enumerate}
+		\item 退役军人优先！国企、央企、上市公司、军创企业招聘超2000人
+		\item 这届毕业生正在逃离科技行业
+		\begin{enumerate}
+			\item 北京事业单位新一批招聘来啦！超600个岗位！
+			\item 年薪可达50万！江西三地公开招聘9名聘任制公务员！
+		\end{enumerate}
+		\item 猎头乱象调查：骗局不少，套路更多
+	\end{enumerate}
+	\item 网络造谣，商丘一男子被处罚！
+	\item 河南3岁男童被恶犬咬伤18天后离世，母亲称希望尽快找到狗主人
+	\item 已到新疆，商丘“90后”带6岁儿子要骑车走完“丝绸之路”
+\end{enumerate}
+	
+据了解，此次招聘活动聚集了睢阳区内外优质企业40余家，提供了包括行政主管、项目经理、销售代表、新媒体运营、会计、人事专员、外卖骑手在内的2000多个工作岗位，满足了广大求职者多元化的就业需求。
+	
+	
+\vspace{0.5cm}
+\rule{0.5\textwidth}{0.4pt}
+\vspace{0.5cm}
+
+
+为全面落实稳就业惠民生政策，5月11日，睢阳区人社局联合区委人才办、区总工会、团区委、区妇联、区残联、区退役军人事务局等七家单位，在金世纪广场联合举办2024年睢阳区“民营企业服务月”专场招聘活动。	
+
+\begin{exam}
+	
+	\item 商丘睢阳区：举办“民营企业服务月”专场招聘
+	\item 河南队2-3武汉三镇丨达兰双响恩里克点射绝杀 河南队遭遇四连败
+	\begin{exam}
+		\item 退役军人优先！国企、央企、上市公司、军创企业招聘超2000人
+		\item 这届毕业生正在逃离科技行业
+		\begin{exam}
+			\item 北京事业单位新一批招聘来啦！超600个岗位！
+			\item 年薪可达50万！江西三地公开招聘9名聘任制公务员！
+		\end{exam}
+		\item 猎头乱象调查：骗局不少，套路更多
+	\end{exam}
+	\item 网络造谣，商丘一男子被处罚！
+	\item 河南3岁男童被恶犬咬伤18天后离世，母亲称希望尽快找到狗主人
+	\item 已到新疆，商丘“90后”带6岁儿子要骑车走完“丝绸之路”
+\end{exam}
+
+据了解，此次招聘活动聚集了睢阳区内外优质企业40余家，提供了包括行政主管、项目经理、销售代表、新媒体运营、会计、人事专员、外卖骑手在内的2000多个工作岗位，满足了广大求职者多元化的就业需求。
+
+
+\begin{enumerate}[resume]
+	\litem {夏邑县}第一高级中学
+	\litem b
+	\litem c
+	\litem d
+\end{enumerate}
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
