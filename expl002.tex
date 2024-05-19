@@ -1,0 +1,71 @@
+\documentclass{ctexart}
+\usepackage{tikz}
+\usepackage{expl3}
+\begin{document}
+	
+\ExplSyntaxOn
+
+\dim_new:N \l_width_dim
+\dim_new:N \l_height_dim
+\dim_new:N \l_line_width_dim
+\tl_new:N \l_color_tl
+\fp_new:N \l_scale_fp
+\dim_new:N \l_xshift_dim
+
+\keys_define:nn{rectangle}
+{
+ width		.dim_set:N = \l_width_dim,
+ width		.initial:n = 1cm,
+ height		.dim_set:N = \l_height_dim,
+height		.initial:n = 2cm,
+ line~width	.dim_set:N = \l_line_width_dim,
+line~width	.initial:n = 1pt,
+ color	   	.tl_set:N  = \l_color_tl,
+ color		.initial:n = yellow,
+ scale		.fp_set:N  = \l_scale_fp,
+ scale		.initial:n = 1.0,
+ xshift		.dim_set:N = \l_xshift_dim,
+ }
+ 
+ \keys_set:nn {rectangle}{
+ width		= 1cm,  
+ height	    = 2cm,  
+ line~width = 0.4pt, 
+ color	   	= blue, 
+ scale		= 1.0,
+ xshift		= 3pt,
+ }
+ 
+\NewDocumentCommand{\rectangle}{O{}}
+{
+ \keys_set:nn{rectangle}{#1}
+	 \begin{tikzpicture}[scale =\fp_use:N\l_scale_fp]
+		\use:x
+		{
+		 \exp_not:N  \draw
+		 [
+		 line~width =\dim_use:N\l_line_width_dim,
+		 color =\tl_use:N\l_color_tl,
+		 xshift=\dim_use:N\l_xshift_dim
+		 ]
+		 (0,0) rectangle (\dim_use:N\l_width_dim,\dim_use:N\l_height_dim);
+		}
+	\end{tikzpicture}
+ }
+ 
+\newcommand \rectset[1]{
+	\keys_set:nn{rectangle}{#1}
+ 	}
+\rectangle \hspace{1cm}
+
+\rectangle[color = red,scale = 2]
+
+\hspace{1cm}
+
+\rectangle[color = cyan,line~width=2pt,width = 2cm,height = 1cm,scale=3]
+
+\rectset{width=1cm,height=1cm,scale=1}\par\vspace{1cm}
+\prg_replicate:nn {5} {\hspace{\dim_use:N\l_xshift_dim}\rectangle[color=green,xshift=-2pt]}
+
+ \ExplSyntaxOff
+\end{document}
