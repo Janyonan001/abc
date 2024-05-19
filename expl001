@@ -1,0 +1,35 @@
+\documentclass{ctexart}
+\usepackage{expl3}
+\usepackage{fontspec}
+\setmainfont{微软雅黑}
+\usepackage{color}
+
+\begin{document}
+	\ExplSyntaxOn
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\int_step_inline:nnn{2}{7}
+	{
+	\int_step_inline:nnn{0}{15}	{\char \int_eval:n {16*#1+##1} \int_compare:nTF{##1=15}
+		{
+		\int_compare:nTF   {#1=7}    {\\\hline\end{tabular}}     {\\ \hline}   
+		}   
+	{&}	 }	   
+	}%
+	\ExplSyntaxOff
+\vspace{2em}%%%%%%%%%%%%%%
+\ExplSyntaxOn
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\int_step_inline:nnn{2}{7}
+		{
+			\int_step_inline:nnn{0}{15}
+				{\int_set:Nn \l_tmpa_int {16*#1+##1} {\color{red}\char \l_tmpa_int }
+					\int_compare:nTF{##1<15}{&}
+					{
+						\int_compare:nTF  {#1<7}  {\\ \hline}   {\\\hline\end{tabular}}      
+					}   
+				 }
+		}%
+\ExplSyntaxOff
+\end{document}
